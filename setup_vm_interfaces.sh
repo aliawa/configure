@@ -86,7 +86,11 @@ readRoutes() {
     echo "Setup Routes ..."
     while read -u $1 -r dest intf gateway
     do
+        # skip comments
         [[ "${dest:0:1}" ==  "#" ]] && continue
+
+        # skip blank lines
+        [[ -z "$dest" || -z "$intf" ]] && continue
 
         if [[ "$intf" == "eth0" ]]; then 
             echo "WARNING: not touching eth0"
